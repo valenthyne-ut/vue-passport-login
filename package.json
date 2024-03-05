@@ -1,6 +1,9 @@
 {
   "name": "vue-passport-login",
   "packageManager": "yarn@4.1.1",
+  "workspaces": [
+    "./workspaces/*"
+  ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
