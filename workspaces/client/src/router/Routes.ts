@@ -17,13 +17,5 @@ export const routes: readonly RouteRecordRaw[] = [
 			title: "Login"
 		},
 		component: () => import("@/views/LoginView.vue")
-	},
-	{
-		path: "/login/create-account",
-		name: "create-account",
-		meta: {
-			title: "Create Account"
-		},
-		component: () => import("@/views/CreateAccountView.vue")
 	}
 ];
