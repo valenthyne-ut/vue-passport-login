@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	import vCard from "@/components/vCard.vue";
-	import vButton from "@/components/vButton.vue";
 	import vField from "@/components/vField.vue";
+	import vFillButton from "@/components/vFillButton.vue";
 </script>
 
 <template>
@@ -15,8 +15,8 @@
 				<vField name="Password"></vField>
 			</li>
 		</ul>
-		<div class="pt-1 flex">
-			<vButton class="bg-red-600 hover:bg-red-700 active:bg-red-800 text-white">Logout</vButton>
-		</div>
+		<vFillButton class="mt-4 bg-red-600 hover:bg-red-700 active:bg-red-800 text-2xl text-white font-bold">
+			Logout
+		</vFillButton>
 	</vCard>
 </template>
