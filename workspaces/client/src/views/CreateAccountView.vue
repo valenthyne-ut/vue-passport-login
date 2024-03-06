@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
 <template>
-	<h1>Hello world!</h1>
+	<h1>Create account view</h1>
 </template>
