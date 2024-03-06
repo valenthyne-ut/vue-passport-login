@@ -3,8 +3,13 @@ import express from "express";
 import cors from "cors";
 import { createServer } from "https";
 import config from "./config";
+import { initModels } from "./db/models";
+import { sequelize } from "./db";
 
 (async () => {
+	initModels(sequelize);
+	await sequelize.sync();
+
 	const app = express();
 	
 	app.use(cors({
