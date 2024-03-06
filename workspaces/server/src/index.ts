@@ -1,10 +1,11 @@
 import "dotenv/config";
+import config from "./config";
 import express from "express";
 import cors from "cors";
 import { createServer } from "https";
-import config from "./config";
 import { initModels } from "./db/models";
 import { sequelize } from "./db";
+import { apiRouter } from "./api";
 
 (async () => {
 	initModels(sequelize);
@@ -15,6 +16,9 @@ import { sequelize } from "./db";
 	app.use(cors({
 		origin: `https://localhost:${config.PORT}`
 	}));
+
+	app.use(express.json());
+	app.use("/api", apiRouter);
 
 	const httpsServer = createServer(config.CREDENTIALS, app).listen(config.PORT);
 	
