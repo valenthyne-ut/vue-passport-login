@@ -3,9 +3,9 @@ import config from "./config";
 import express from "express";
 import cors from "cors";
 import { createServer } from "https";
-import { initModels } from "./db/models";
-import { sequelize } from "./db";
-import { apiRouter } from "./api";
+import { initModels } from "@/db/models";
+import { sequelize } from "@/db";
+import { apiRouter } from "@/api";
 
 (async () => {
 	initModels(sequelize);
