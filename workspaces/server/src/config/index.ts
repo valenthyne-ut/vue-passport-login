@@ -1,3 +1,4 @@
+import { benchmarkServerHashCost } from "@/util/bcrypt";
 import { readFileSync } from "fs";
 import { ServerOptions } from "https";
 import { join } from "path";
@@ -21,7 +22,19 @@ function readCredentials(): ServerOptions {
 	return credentials;
 }
 
+function getHashCost() {
+	const userDefHashCost = parseInt(process.env.BCRYPT_HASH_COST);
+	if(userDefHashCost) { return userDefHashCost; }
+	
+	const userDefAcceptableDelay = parseInt(process.env.BCRYPT_ACCEPTABLE_HASH_DELAY);
+	if(userDefAcceptableDelay) { return benchmarkServerHashCost(userDefAcceptableDelay); }
+	
+	return benchmarkServerHashCost(350);
+}
+
 export default {
 	PORT: parseInt(process.env.PORT) || 8443,
 	CREDENTIALS: readCredentials(),
+	BCRYPT_HASH_COST: getHashCost(),
+	BCRYPT_ACCEPTABLE_HASH_DELAY: parseInt(process.env.BCRYPT_ACCEPTABLE_HASH_DELAY) || 350
 };
