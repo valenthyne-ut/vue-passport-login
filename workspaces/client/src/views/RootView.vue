@@ -7,7 +7,7 @@
 <template>
 	<vCard>
 		<h1 class="text-3xl font-bold self-center">Account details</h1>
-		<ul class="pt-4 flex flex-col gap-1">
+		<ul class="mt-4 flex flex-col gap-1">
 			<li>
 				<vField name="Username"></vField>
 			</li>
