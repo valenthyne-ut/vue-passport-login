@@ -1,6 +1,9 @@
 <script setup lang="ts">
 	import { computed, ref } from "vue";
 	import vField from "../vField.vue";
+	import { useLoginStore } from "@/stores/loginStore";
+
+	const loginStore = useLoginStore();
 
 	const passwordVisible = ref<boolean>(false);
 
@@ -18,10 +21,10 @@
 
 <template>
 	<vField name="Username" class="mt-4">
-		<input name="username" type="text" placeholder="Enter your username here" class="outline-none grow">
+		<input name="username" type="text" placeholder="Enter your username here" v-model="loginStore.username" class="outline-none grow">
 	</vField>
 	<vField name="Password" class="mt-1">
-		<input name="password" :type="cInputType" placeholder="Enter your password here" class="outline-none grow">
+		<input name="password" :type="cInputType" placeholder="Enter your password here" v-model="loginStore.password" class="outline-none grow">
 		<button type="button" class="ms-1" @click="togglePasswordVisibility">
 			<i :class="cPasswordVisible"></i>
 		</button>

@@ -5,7 +5,7 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
 	declare createdAt: CreationOptional<Date>;
 	declare updatedAt: CreationOptional<Date>;
 
-	declare name: string;
+	declare username: string;
 	declare password: string;
 
 	static initModel(sequelize: Sequelize): typeof User {
@@ -22,7 +22,7 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
 				type: DataTypes.DATE
 			},
 
-			name: {
+			username: {
 				type: DataTypes.TEXT,
 				unique: true,
 				allowNull: false

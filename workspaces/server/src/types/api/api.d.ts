@@ -1,0 +1,1 @@
+export type RequestParameterTypes = "string" | "number" | "boolean";
