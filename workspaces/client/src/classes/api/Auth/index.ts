@@ -14,4 +14,12 @@ export class AuthAPI extends GenericAPI {
 
 		return await this.performCall(this.rootPath, HTTPMethods.POST, { body: requestData }) as SuccessfulLoginResponse;
 	}
+
+	async logout(jwt: string): Promise<void> {
+		const requestHeaders: HeadersInit = {
+			"Authorization": "Bearer " + jwt
+		};
+
+		return await this.performCall(this.rootPath, HTTPMethods.DELETE, { headers: requestHeaders }) as void;
+	}
 }

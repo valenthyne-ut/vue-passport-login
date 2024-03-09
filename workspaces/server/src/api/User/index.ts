@@ -6,9 +6,10 @@ import { User } from "@/db/models/User";
 import { hashSync } from "bcrypt";
 import config from "@/config";
 import passport from "passport";
+import { invalidatedJWTFilter } from "@/middleware/InvalidatedJWTFilter";
 
 export const userRouter = Router()
-	.get("/", passport.authenticate("jwt", { session: false }), (request, response) => {
+	.get("/", invalidatedJWTFilter, passport.authenticate("jwt", { session: false }), (request, response) => {
 		const user = request.user as User;
 		return response.status(200).json({
 			user: {

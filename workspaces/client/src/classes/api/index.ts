@@ -28,13 +28,13 @@ export abstract class GenericAPI {
 		this.rootPath = rootPath;
 	}
 
-	protected async performCall(path: string, method: HTTPMethods, params: APICallOptionalParams): Promise<unknown> {
+	protected async performCall(path: string, method: HTTPMethods, params?: APICallOptionalParams): Promise<unknown> {
 		const requestOptions: RequestInit = {
 			method: method,
-			headers: params.headers || {
-				"Content-Type": params.contentType || "application/json"
+			headers: params?.headers || {
+				"Content-Type": params?.contentType || "application/json"
 			},
-			body: params.body
+			body: params?.body
 		};
 		
 		const response = await fetch(path, requestOptions);
