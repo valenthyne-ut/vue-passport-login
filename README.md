@@ -1,1 +1,3 @@
-# vue-passport-login
+An monorepo consisting of [vue-passport-login-client](https://github.com/valenthyne-ut/vue-passport-login-client) and [vue-passport-login-server](https://github.com/valenthyne-ut/vue-passport-login-server) using Yarn's workspaces feature, with plenty of improvements to their code, and the implementation of a build process.
+
+This is a small project I'm putting together to learn how to use Yarn, how to implement stateless sessions using JWTs, and how to create a build process for packaging a production-ready server and client.
