@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, type RouteLocationNormalized } from "vue-router";
 import { routes } from "./Routes";
 import { useAuthStore } from "@/stores/authStore";
+import { UserAPI } from "@/classes/api/User";
 
 const DEFAULT_ROUTE_TITLE = "vue-passport-login";
 
@@ -15,13 +16,20 @@ const router = createRouter({
 	routes: routes
 });
 
-router.beforeEach((to, from) => {
+router.beforeEach(async (to, from) => {
 	const authStore = useAuthStore();
 
-	if(to.name == "root" && !authStore.authenticated) {
-		return { name: "login" };
-	} else if(to.name == "login" && authStore.authenticated) {
-		return { name: "root" };
+	if(!from.name && !authStore.authenticated) {
+		const jwt = localStorage.getItem("jwt");
+		if(jwt) {
+			localStorage.removeItem("jwt");
+			try {
+				const user = (await new UserAPI().getUserDetails(jwt)).user;
+				authStore.authenticate(jwt, user);
+			} catch(error) {
+				console.log(error);
+			}
+		}
 	}
 
 	setTitle(to);

@@ -1,3 +1,4 @@
+import type { UserDetailsResponse } from "@/types/api/User";
 import { GenericAPI, HTTPMethods } from "..";
 
 export class UserAPI extends GenericAPI {
@@ -12,5 +13,13 @@ export class UserAPI extends GenericAPI {
 		});
 
 		return await this.performCall(this.rootPath, HTTPMethods.POST, { body: requestData }) as void;
+	}
+
+	async getUserDetails(jwt: string): Promise<UserDetailsResponse> {
+		const requestHeaders: HeadersInit = {
+			"Authorization": "Bearer " + jwt
+		};
+
+		return await this.performCall(this.rootPath, HTTPMethods.GET, { headers: requestHeaders }) as UserDetailsResponse;
 	}
 }
