@@ -7,6 +7,8 @@ import { initModels } from "@/db/models";
 import { sequelize } from "@/db";
 import { apiRouter } from "@/api";
 
+import "@/strategies";
+
 (async () => {
 	initModels(sequelize);
 	await sequelize.sync();

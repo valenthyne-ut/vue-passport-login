@@ -18,6 +18,16 @@
 		loginStatus.value.text = text;
 	}
 
+	async function login() {
+		setLoginStatus(false, "");
+		try {
+			console.log(await loginStore.attemptLogin());
+			setLoginStatus(true, "Logged in successfully. Redirecting..");
+		} catch(error) {
+			setLoginStatus(false, (error as Error).message || error as string);
+		}
+	}
+
 	async function createAccount() {
 		setLoginStatus(false, "");
 		try {
@@ -35,7 +45,7 @@
 		<vAlert class="mt-2" :type="cAlertType" :dismissable="true" v-model:alert-text="loginStatus.text"/>
 		<LoginInputFields />
 		<div class="flex items-center gap-3 mt-4 select-none">
-			<vFillButton class="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-xl text-white font-bold">
+			<vFillButton @click="login" class="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-xl text-white font-bold">
 				Login
 			</vFillButton>
 			or

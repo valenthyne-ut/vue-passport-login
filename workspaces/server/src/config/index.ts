@@ -1,4 +1,5 @@
 import { benchmarkServerHashCost } from "@/util/bcrypt";
+import { randomBytes } from "crypto";
 import { readFileSync } from "fs";
 import { ServerOptions } from "https";
 import { join } from "path";
@@ -36,5 +37,6 @@ export default {
 	PORT: parseInt(process.env.PORT) || 8443,
 	CREDENTIALS: readCredentials(),
 	BCRYPT_HASH_COST: getHashCost(),
-	BCRYPT_ACCEPTABLE_HASH_DELAY: parseInt(process.env.BCRYPT_ACCEPTABLE_HASH_DELAY) || 350
+	BCRYPT_ACCEPTABLE_HASH_DELAY: parseInt(process.env.BCRYPT_ACCEPTABLE_HASH_DELAY) || 350,
+	JWT_SECRET: randomBytes(48).toString("hex")
 };
