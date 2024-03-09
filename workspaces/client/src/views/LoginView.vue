@@ -21,13 +21,18 @@
 		loginStatus.value.text = text;
 	}
 
+	function clearFields() {
+		loginStore.username = "";
+		loginStore.password = "";
+	}
+
 	async function login() {
 		setLoginStatus(false, "");
 		try {
 			const authDetails = await loginStore.attemptLogin();
 			authStore.authenticate(authDetails.jwt, authDetails.user);
-			setLoginStatus(true, "Logged in successfully. Redirecting..");
-			setTimeout(() => { router.push("/"); }, 1000);
+			clearFields();
+			router.push({ name: "root" });
 		} catch(error) {
 			setLoginStatus(false, (error as Error).message || error as string);
 		}
@@ -37,6 +42,7 @@
 		setLoginStatus(false, "");
 		try {
 			await loginStore.attemptCreateAccount();
+			clearFields();
 			setLoginStatus(true, "Account created successfully.");
 		} catch(error) {
 			setLoginStatus(false, (error as Error).message || error as string);
