@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, type RouteLocationNormalized } from "vue-router";
 import { routes } from "./Routes";
+import { useAuthStore } from "@/stores/authStore";
 
 const DEFAULT_ROUTE_TITLE = "vue-passport-login";
 
@@ -15,6 +16,14 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from) => {
+	const authStore = useAuthStore();
+
+	if(to.name == "root" && !authStore.authenticated) {
+		return { name: "login" };
+	} else if(to.name == "login" && authStore.authenticated) {
+		return { name: "root" };
+	}
+
 	setTitle(to);
 });
 

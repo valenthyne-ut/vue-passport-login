@@ -3,10 +3,13 @@
 	import vAlert from "@/components/vAlert.vue";
 	import vCard from "@/components/vCard.vue";
 	import vFillButton from "@/components/vFillButton.vue";
+	import router from "@/router";
+	import { useAuthStore } from "@/stores/authStore";
 	import { useLoginStore } from "@/stores/loginStore";
 	import { computed, ref } from "vue";
 
 	const loginStore = useLoginStore();
+	const authStore = useAuthStore();
 	const loginStatus = ref<{ successful: boolean, text: string }>({ successful: false, text: "" });
 
 	const cAlertType = computed(() => {
@@ -21,8 +24,10 @@
 	async function login() {
 		setLoginStatus(false, "");
 		try {
-			console.log(await loginStore.attemptLogin());
+			const authDetails = await loginStore.attemptLogin();
+			authStore.authenticate(authDetails.jwt, authDetails.user);
 			setLoginStatus(true, "Logged in successfully. Redirecting..");
+			setTimeout(() => { router.push("/"); }, 1000);
 		} catch(error) {
 			setLoginStatus(false, (error as Error).message || error as string);
 		}
