@@ -18,11 +18,12 @@ export const authRouter = Router()
 					console.log((error as Error).message || error as string);
 					return response.status(500).json({ error: "Something went wrong while logging you in." });
 				}
-
+				
 				const payload: JWTPayload = {
 					user: {
 						name: user.username
-					}
+					},
+					exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60)
 				};
 
 				const jwt = sign(payload, config.JWT_SECRET);
