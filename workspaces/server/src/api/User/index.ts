@@ -1,7 +1,7 @@
 import { Request, Router } from "express";
 import { userCreationParameterFilter } from "./filters";
 import { UserCreationParameters } from "@/types/api/User";
-import { serverErrorResponse } from "@/util/api";
+import { clientErrorResponse, serverErrorResponse } from "@/util/api";
 import { User } from "@/db/models/User";
 import { hashSync } from "bcrypt";
 import config from "@/config";
@@ -22,7 +22,7 @@ export const userRouter = Router()
 			const { username, password } = request.body;
 
 			const userExists = await User.findOne({ where: { username: username } }) != null;
-			if(userExists) { return response.status(400).json({ error: "A user with the provided name already exists." }); }
+			if(userExists) { return clientErrorResponse(response, "A user with the provided name already exists."); }
 
 			await User.create({
 				username: username,

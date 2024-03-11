@@ -11,6 +11,12 @@ export function invalidRequestParameterResponse(response: Response, name: string
 	});
 }
 
+export function clientErrorResponse(response: Response, error: string) {
+	return response.status(400).json({
+		error: error
+	});
+}
+
 export function serverErrorResponse(response: Response, error: string) {
 	return response.status(500).json({
 		error: error

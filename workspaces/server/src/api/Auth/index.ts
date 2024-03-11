@@ -3,7 +3,7 @@ import { InvalidatedJWT } from "@/db/models/InvalidatedJWT";
 import { User } from "@/db/models/User";
 import { invalidatedJWTFilter } from "@/middleware/InvalidatedJWTFilter";
 import { JWTPayload } from "@/types/api/Auth";
-import { serverErrorResponse } from "@/util/api";
+import { clientErrorResponse, serverErrorResponse } from "@/util/api";
 import { Router } from "express";
 import { sign } from "jsonwebtoken";
 import passport from "passport";
@@ -11,12 +11,12 @@ import passport from "passport";
 export const authRouter = Router()
 	.post("/", (request, response, next) => {
 		passport.authenticate("password", { session: false }, (error: Error | null, user: User) => {
-			if(error) { return response.status(400).json({ error: error.message }); }
+			if(error) { return clientErrorResponse(response, error.message); }
 
 			request.login(user, { session: false }, async (error) => {
 				if(error) { 
 					console.log((error as Error).message || error as string);
-					return response.status(500).json({ error: "Something went wrong while logging you in." });
+					return serverErrorResponse(response, "Something went wrong while logging you in.");
 				}
 				
 				const payload: JWTPayload = {
@@ -44,9 +44,7 @@ export const authRouter = Router()
 
 				return response.status(200).json({});
 			} else {
-				return response.status(400).json({
-					error: "Not logged in."
-				});
+				return clientErrorResponse(response, "Not logged in.");
 			}
 		} catch(error) {
 			console.log((error as Error).message || error as string);
