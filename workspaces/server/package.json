@@ -14,6 +14,7 @@
     "@types/passport": "^1.0.16",
     "@types/passport-jwt": "^4.0.1",
     "@types/passport-local": "^1.0.38",
+    "@types/pug": "^2.0.10",
     "rimraf": "^5.0.5",
     "tsconfig-replace-paths": "^0.0.14",
     "typescript": "^5.3.3"
@@ -27,6 +28,7 @@
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
+    "pug": "^3.0.2",
     "sequelize": "^6.37.1",
     "sqlite3": "^5.1.7"
   }
